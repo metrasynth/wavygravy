@@ -5,7 +5,8 @@ from mido import Message
 from pedalboard import load_plugin
 from pedalboard_native.io import AudioFile
 
-from common import correct_dc_offset, midi_to_hz, normalize, samples_per_cycle
+from common import correct_dc_offset, dump_param_details, dump_param_vars, midi_to_hz, normalize, \
+    samples_per_cycle
 
 
 PLUGIN_PATH = Path("/Library/Audio/Plug-Ins/VST3/ReDominator1x.vst3")
@@ -64,9 +65,8 @@ def main():
         with AudioFile(str(OUTPUT_DIR / filename), "w", SAMPLE_RATE, num_channels=1, bit_depth=32) as o:
             o.write(wavetable)
 
-    # Dump all the parameters
-    for k in sorted(synth.parameters):
-        print(f"{k} = {getattr(synth, k)} ({synth.parameters[k]})")
+    dump_param_details(synth)
+    dump_param_vars(synth)
 
 
 if __name__ == "__main__":

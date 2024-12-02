@@ -2,12 +2,13 @@
 
 from pathlib import Path
 
-import numpy as np
+import numpy as np  # noqa
 from mido import Message
 from pedalboard import load_plugin
 from pedalboard_native.io import AudioFile
 
-from common import correct_dc_offset, midi_to_hz, normalize, samples_per_cycle
+from common import correct_dc_offset, dump_param_details, dump_param_vars, midi_to_hz, normalize, \
+    samples_per_cycle  # noqa
 
 
 PLUGIN_PATH = Path("/Applications/Nambu.app/Wrapper/Nambu.app/PlugIns/Plugin.appex")
@@ -66,9 +67,8 @@ def main():
     #     with AudioFile(str(OUTPUT_DIR / filename), "w", SAMPLE_RATE, num_channels=1, bit_depth=32) as o:
     #         o.write(wavetable)
 
-    # Dump all the parameters
-    for k in sorted(synth.parameters):
-        print(f"{k} = {getattr(synth, k)} ({synth.parameters[k]})")
+    dump_param_details(synth)
+    dump_param_vars(synth)
 
 
 if __name__ == "__main__":
