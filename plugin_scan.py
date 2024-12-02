@@ -15,6 +15,7 @@
 # ///
 
 
+import json
 import re
 import os
 import platform
@@ -217,7 +218,16 @@ class PedalboardScanner:
             self.rescan(extra_folders=extra_folders)
             return
         self.plugins = load_json_file(self.plugins_path)
-        new_vst3_paths = sorted(list(set(self._find_vst3_plugins(extra_folders=extra_folders)) - set(Path(p["path"]).resolve() for p in self.plugins.values() if p["type"] == "vst3")))
+        new_vst3_paths = sorted(
+            list(
+                set(self._find_vst3_plugins(extra_folders=extra_folders))
+                - set(
+                    Path(p["path"]).resolve()
+                    for p in self.plugins.values()
+                    if p["type"] == "vst3"
+                )
+            )
+        )
         self.scan_vst3_plugins(extra_folders=extra_folders, plugin_paths=new_vst3_paths)
         # new_aufx_paths = sorted(list(set(self._find_aufx_plugins()) - set(Path(p["path"]).resolve() for p in self.plugins.values() if p["type"] == "aufx")))
         # if platform.system() == "Darwin":
