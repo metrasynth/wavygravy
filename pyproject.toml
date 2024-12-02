@@ -1,0 +1,24 @@
+[project]
+name = "wavygravy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Matthew Scott", email = "matt@11craft.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "mido>=1.3.3",
+    "pedalboard-pluginary>=1.1.0",
+    "pedalboard>=0.9.16",
+    "rich>=13.9.4",
+    "scipy>=1.14.1",
+    "setuptools>=75.6.0",
+]
+
+[project.scripts]
+wavygravy = "wavygravy.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
